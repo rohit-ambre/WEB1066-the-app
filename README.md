@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/rohit-ambre/WEB1066-the-app.svg?branch=master)](https://travis-ci.com/rohit-ambre/WEB1066-the-app)
+
 # Microservice Phone Shop Application and CD pipeline
 
 ## Introduction
