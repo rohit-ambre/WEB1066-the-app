@@ -6,26 +6,26 @@ services:
 - docker
 env:
   matrix:
-    - COVERAGE=0.057 BUILD_TARGET=./monolithic/ui
-    - COVERAGE=0.148 BUILD_TARGET=./monolithic/service/cart
-    - COVERAGE=0.0 BUILD_TARGET=./monolithic/service/user
-    - COVERAGE=0.36 BUILD_TARGET=./monolithic/repository/order
-    - COVERAGE=0.0 BUILD_TARGET=./monolithic/repository/cart
-    - COVERAGE=0.124 BUILD_TARGET=./monolithic/repository/product
-    - COVERAGE=0.318 BUILD_TARGET=./monolithic/repository/user
+  - COVERAGE=0.057 BUILD_TARGET=./monolithic/ui
+  - COVERAGE=0.148 BUILD_TARGET=./monolithic/service/cart
+  - COVERAGE=0.0 BUILD_TARGET=./monolithic/service/user
+  - COVERAGE=0.36 BUILD_TARGET=./monolithic/repository/order
+  - COVERAGE=0.0 BUILD_TARGET=./monolithic/repository/cart
+  - COVERAGE=0.124 BUILD_TARGET=./monolithic/repository/product
+  - COVERAGE=0.318 BUILD_TARGET=./monolithic/repository/user
   global:
-    - DOCKER_LOGIN=rohitambre
-    - secure: kjIisnDejJa2iWynD+rWKRGg02u4X6tm274KuBWQqrX5phWukDp6AiaHSV7KZ/VRpXdea+svBd1wEq/6bhJYCK7/N421s1yK+HsmxhspWveWGy5+S1+B/Nwfkx89304Qw7uAj4OMVuhte4eoERU2jaNIkwuWSCXH/wz4h182RQcsJUcp2QJcxva1EZK8fu6CaCChWR4xtIuhtFNrCc6VhVvupYMjcZLeWEnkvEyOcU1gn1OX1kwBGjzKeEgQTCZ0TaHFvY5p6HExO9R7ll8KW93emwVGbD0otIGzR1fpPjUi0tP1eAHzdnPdWNUGfL9N34JoIlS5FnRHmHcZv9cahI/CZqyKhuUMUFrp+uVhgk0R7ENQkrMcBhZbjc1pQPi24b9bYpdtXvZKSLxKF6SIacOIgbzcOOmA0TFhHj8bhYAT1x7n28N2ahYl4MFjDzTn0RH8h+2l35jJ6j9AJE1K4aOsfsVOvZpqoIlNdB7RWpU43ZR/Gkf9clqAfh7cOCTzCpnhew+G6JCr6Pny71ej6On8AhA1MG+6l2TKtd2yx76JZSKtCPq7G+EzL+zD12BJHbiGcpwH50ILfXRwg+LzK/oWne4Dpc6tjr5AmAAWHhOXgiZkHgQfwBxCqdPN137PiIiEH/Dl7/PSSQDyNv4PfqBrMFIMzSprNBR9L8W4q6g=
+  - DOCKER_LOGIN=rohitambre
+  - secure: kGsE63Zn7kmVrg3iISDMPMnzu99PdMK1wk3VgPi/UaBLbuNeIBYxYnoJB0ITDad76CAYNB6wNCFKjdaUlItSLo+9x4tiMvr+va3LWL0WJD7gerP+3XVKJYjs2Wd6prHYNZdjHEHkgsbYsaiQ27/l6BUky/0k3dIWlqdJqfV3rmCVjJ5tnhqFGwPOXfMcKbhNfwO/QPhBT43NEoU0EDCKqrXMTMdXGtO5fyE6veEaNS8lC2sCJg5p+5q6mYvKA2UQGI6C7W9YcB3TtKFtfjSxFoesGCoCiurCzirOyFM+4UQ3pYQOM4OkCcqhMWBhfXeedJzBTc5Kzw3qh+K8T4IHqqGrtV2t3SRo+Kdh/DoKJeAgqxuMuS4P5nLMDpwNleX4xxgsS4/mA3MeEWz9Du0jUb60uKauiFbijrOTBw8WUqrMxeD3K6T1ln1Y/qyFYMSdR3IMQUKm4rI0JS/UG0oKC3A44y6sZwjBsOWdCqlAOtiUusNtmxG/4ECFWIysxPw7JJoilK0ebsXM0rRxXpbaZj+3yPxNqPUR5jlRqCnXKg6TwYzedbR4Bp72kxz+D1LVgXBF2A28uI9QkJ+xwSwGcL1qy7Q87G1DcjWhA4+mkBGhHFxWpqjbu9xwiIX0RlZ4TYYYDkGlbFpN62E2dA8MdJkpVSppPDLgZBCOAd7FR9w=
 install:
-  - "./gradlew clean jar"
+- "./gradlew clean jar"
 script:
-  - "./gradlew -p $BUILD_TARGET check"
+- "./gradlew -p $BUILD_TARGET check"
 after_success:
-  - "./gradlew jacocoTestReport"
-  - find . -name jacocoTestReport.csv|xargs cat|awk -F',' '{print $3" "$4" "$5}'
-
+- "./gradlew jacocoTestReport"
+- find . -name jacocoTestReport.csv|xargs cat|awk -F',' '{print $3" "$4" "$5}'
 deploy:
   provider: script
-  script: bash -c "echo \"${DOCKER_PASSWORD}\" | docker login --username \"${DOCKER_LOGIN}\" --password-stdin ;"
+  script: bash -c "echo \"${DOCKER_PASSWORD}\" | docker login --username \"${DOCKER_LOGIN}\"
+    --password-stdin ;"
   on:
     all_branches: true
