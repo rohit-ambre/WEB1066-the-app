@@ -32,4 +32,4 @@ deploy:
   script: ./script/deploy.sh
   on:
     all_branches: true
-    condition: $TRAVIS_BRANCH =~ ^master$ && $BUILD_TARGET = ./monolithic/ui 
+    condition: $TRAVIS_BRANCH = master && $BUILD_TARGET = ./monolithic/ui 
